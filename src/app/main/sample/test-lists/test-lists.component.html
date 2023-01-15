@@ -1,0 +1,53 @@
+<div>
+  <div class="row">
+    <div class="col col-xl-12 col-lg-12">
+      <div class="card mb-3">
+        <div class="card-header   text-success">
+         <h6 class="text-success">Test List</h6> 
+        </div>
+        <div class="card-body table-responsive">
+          <table class="table text-center">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody *ngIf="testList && testList.length > 0">
+              <tr *ngFor="let test of testList;let i = index;">
+                <th scope="row">{{i + 1}}</th>
+                <td>{{test.name}}</td>
+                <td>{{test.description}}</td>
+                <td>{{test.productPrice}}</td>
+                <td>
+                  <div ngbDropdown container="body">
+                    <button type="button" class="btn btn-sm hide-arrow" ngbDropdownToggle
+                        data-toggle="dropdown">
+                        <i data-feather="more-vertical"></i>
+                    </button>
+                    <div ngbDropdownMenu>
+                        <a ngbDropdownItem href="javascript:void(0);">
+                            <i data-feather="edit" class="mr-50"></i><span>Edit</span>
+                        </a>                                   
+                        <a ngbDropdownItem href="javascript:void(0);"><i data-feather="trash"
+                                class="mr-50"></i><span>Delete</span></a>
+                    </div>
+                </div>
+                </td>
+              </tr>
+            </tbody>
+            <tbody *ngIf="!testList || testList.length == 0">
+              <tr>
+                <td colspan="7">
+                  <h6 class="text-info">No test found</h6></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,93 @@
+<div [@routerTransition] class="auth-wrapper auth-v1 px-2">
+  <div class="auth-inner py-2">
+    <div class="card mb-0">
+      <div class="card-body">
+        <a href="javascript:void(0);" class="brand-logo">
+          <img src="{{ coreConfig.app.appLogoImage }}" alt="brand-logo" height="28" />
+          <h2 class="brand-text text-danger ml-1">Blood Test</h2>
+        </a>
+
+        <form role="form" class="auth-register-form mt-2" (ngSubmit)="onLogin()"
+          [formGroup]="apiService.loginFormModel">
+
+          <div class="row justify-content-center">
+            <div class="col-sm-12 col-md-12 col-xl-6">
+              <div class="form-group">
+                <label for="register-email" class="form-label">Email</label>
+                <input type="email" formControlName="Email" class="form-control" [placeholder]="'Email'"
+                  aria-describedby="register-Email" tabindex="2" placeholder="Email Address"
+                  [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                <label class="text-danger"
+                  *ngIf="apiService.loginFormModel.get('Email')?.touched && apiService.loginFormModel.get('Email').errors?.required">
+                  Email is required
+                </label>
+                <label class="text-danger"
+                  *ngIf="apiService.loginFormModel.get('Email')?.touched && apiService.loginFormModel.get('Email').errors?.email">
+                  Please enter a valid email address
+                </label>
+                <div *ngIf="submitted && f.Email.errors" class="invalid-feedback">
+                  <div *ngIf="f.Email.errors.required">Email is required</div>
+                  <div *ngIf="f.Email.errors.Email">Email must be a valid email address</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row justify-content-center">
+            <div class="col-sm-12 col-md-12 col-xl-6">
+              <div class="form-group">
+                <label for="register-password" class="form-label">Password</label>
+                <div class="input-group input-group-merge form-password-toggle">
+                  <input [type]="passwordTextType ? 'text' : 'password'" formControlName="Password"
+                    class="form-control form-control-merge" placeholder="············"
+                    aria-describedby="register-password" tabindex="3"
+                    [ngClass]="{ 'is-invalid error': submitted && f.password.errors }" />
+                  <div class="input-group-append">
+                    <span class="input-group-text cursor-pointer"><i class="feather font-small-4" [ngClass]="{
+              'icon-eye-off': passwordTextType,
+              'icon-eye': !passwordTextType
+              }" (click)="togglePasswordTextType()"></i></span>
+                  </div>
+                </div>
+                <div *ngIf="submitted && f.password.errors" class="invalid-feedback"
+                  [ngClass]="{ 'd-block': submitted && f.password.errors }">
+                  <div *ngIf="f.password.errors.required">Password is required</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row justify-content-center">
+            <div class="col-sm-12 col-md-12 col-xl-6">
+              <button class="btn btn-danger btn-block" [routerLink]="['/dashboard']" type="submit" tabindex="5"
+                rippleEffect>Log in</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- <div class="row justify-content-center">
+            <div class="col-6">
+              <div class="form-group">
+                <label for="register-password" class="form-label">password</label>
+                <input type="password" [placeholder]="'Password'" formControlName="Password" class="form-control"
+                  placeholder="enter your Password" aria-describedby="register-Password" tabindex="2"
+                  [ngClass]="{ 'is-invalid': submitted && f.Password.errors }" />
+                <label class="text-danger"
+                  *ngIf="apiService.loginFormModel.get('password')?.touched && apiService.loginFormModel.get('password').errors?.required">
+                  Password is required
+                </label>
+                <label class="text-danger"
+                  *ngIf="apiService.loginFormModel.get('password')?.touched && apiService.loginFormModel.get('password').errors?.password">
+                  Please enter a valid password
+                </label>
+                <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                  <div *ngIf="f.password.errors.required">Password is required</div>
+                </div>
+              </div>
+            </div>
+          </div> -->

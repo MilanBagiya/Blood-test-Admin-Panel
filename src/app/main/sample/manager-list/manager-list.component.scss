@@ -1,0 +1,454 @@
+@import "@core/scss/base/pages/app-invoice.scss";
+@import "@core/scss/angular/libs/datatables.component.scss";
+@import "@core/scss/angular/libs/select.component.scss";
+
+@import "@core/scss/base/bootstrap-extended/_include";
+// @import '../components/include'; // Components includes
+
+// invoice list
+.invoice-list-wrapper {
+  .col-actions {
+    a {
+      &:not(.dropdown-item) {
+        color: $body-color;
+      }
+    }
+  }
+}
+
+table.dataTable {
+  // table width & collapse border
+  width: 100% !important;
+  border-collapse: collapse !important;
+  td,
+  th {
+    padding: $table-cell-padding 1.5rem;
+    vertical-align: middle;
+  }
+  thead {
+    // Sorting Icons Change
+    .sorting,
+    .sorting_asc,
+    .sorting_desc {
+      padding-right: inherit;
+      &:before {
+        background-image: url(str-replace(
+          str-replace($chevron-up, "currentColor", $table-head-color),
+          "#",
+          "%23"
+        ));
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 12px;
+        color: $body-color;
+        width: 14px;
+        height: 14px;
+        content: "";
+        right: 0.3rem;
+        top: 0.5rem;
+      }
+      &:after {
+        background-image: url(str-replace(
+          str-replace($chevron-down, "currentColor", $table-head-color),
+          "#",
+          "%23"
+        ));
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 12px;
+        color: $body-color;
+        width: 14px;
+        height: 14px;
+        content: "";
+        right: 0.3rem;
+        top: 1.3rem;
+      }
+    }
+  }
+
+  // datatables with checkbox styling
+  .dt-checkboxes-cell {
+    .custom-control {
+      padding-left: 0;
+      padding-right: 1.25rem;
+    }
+  }
+}
+
+div.dataTables_wrapper .dt-button-collection {
+  background-color: $dropdown-bg;
+  > div[role="menu"] {
+    text-align: left;
+    box-shadow: 0px 5px 16px -8px;
+    min-width: 8rem;
+  }
+  [class*="buttons-"]:focus {
+    outline: 0;
+  }
+}
+
+// data table search, labels and
+div.dataTables_wrapper {
+  // data table search, labels
+  div.dataTables_filter,
+  div.dataTables_length {
+    label {
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    // for datatable length select
+    select {
+      background-position: calc(100% - 3px) 11px, calc(100% - 20px) 13px, 100% 0;
+      padding: 0 0.8rem;
+      width: 5rem;
+      margin: 0 0.5rem;
+    }
+  }
+  div.dataTables_filter input {
+    margin-left: 0.75rem;
+  }
+
+  // pagination
+  div.dataTables_paginate {
+    ul.pagination {
+      margin-top: 1rem;
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  // info text color
+  .dataTables_info {
+    padding-top: 1.25rem !important;
+    color: $text-muted;
+  }
+}
+
+// row grouping
+tr.group {
+  // row grouping color
+  background-color: $table-accent-bg;
+}
+
+// pagination in center
+@media only screen and (max-width: 768px) {
+  div.dataTables_wrapper {
+    div.dataTables_paginate {
+      ul.pagination {
+        justify-content: center;
+      }
+    }
+  }
+
+  div.dataTables_wrapper div.dataTables_info {
+    white-space: inherit;
+  }
+  // small screen button spacing in bottom
+  div.dt-buttons {
+    justify-content: center;
+    margin-top: 1rem;
+    button {
+      margin-bottom: 0.5rem;
+    }
+  }
+}
+@include media-breakpoint-down(xs) {
+  .dtr-bs-modal {
+    .modal-body {
+      padding-left: 0;
+      padding-right: 0;
+      overflow-x: scroll;
+    }
+    .table.dtr-details {
+      margin: 0 auto 1rem;
+      td {
+        padding-left: 0;
+        padding-right: 0;
+      }
+      tr td:first-child {
+        padding-left: 0.75rem;
+      }
+    }
+  }
+  div.dataTables_wrapper {
+    overflow: scroll;
+  }
+}
+
+$product-details-bg: #fcfcfc;
+$invoice-spacing: 1.45rem 0;
+$invoice-card-body-padding: 2.5rem;
+
+// Invoice Preview, Edit & Add
+.invoice-preview,
+.invoice-edit,
+.invoice-add {
+  .invoice-padding {
+    padding-left: $invoice-card-body-padding;
+    padding-right: $invoice-card-body-padding;
+  }
+  .table {
+    th:first-child,
+    td:first-child {
+      padding-left: 2.5rem;
+    }
+  }
+  .logo-wrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.9rem;
+    .invoice-logo {
+      font-size: 2.142rem;
+      font-weight: bold;
+      letter-spacing: -0.54px;
+      margin-left: 1rem;
+      margin-bottom: 0;
+    }
+  }
+  .invoice-title {
+    font-size: 1.285rem;
+    margin-bottom: 1rem;
+    .invoice-number {
+      font-weight: 600;
+    }
+  }
+  .invoice-date-wrapper {
+    display: flex;
+    align-items: center;
+
+    &:not(:last-of-type) {
+      margin-bottom: 0.5rem;
+    }
+
+    .invoice-date-title {
+      width: 7rem;
+      margin-bottom: 0;
+    }
+    .invoice-date {
+      margin-left: 0.5rem;
+      font-weight: 600;
+      margin-bottom: 0;
+    }
+  }
+  .invoice-spacing {
+    margin: $invoice-spacing;
+  }
+  .invoice-number-date {
+    .title {
+      width: 115px;
+    }
+  }
+  .invoice-total-wrapper {
+    width: 100%;
+    max-width: 12rem;
+    .invoice-total-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .invoice-total-title {
+        margin-bottom: 0.35rem;
+      }
+      .invoice-total-amount {
+        margin-bottom: 0.35rem;
+        font-weight: 600;
+      }
+    }
+  }
+
+  @media (min-width: 768px) {
+    .invoice-title {
+      text-align: right;
+      margin-bottom: 3rem;
+    }
+  }
+}
+
+// Invoice Edit & Add
+.invoice-edit,
+.invoice-add {
+  .invoice-preview-card {
+    .invoice-title {
+      text-align: left;
+      margin-right: 3.5rem;
+      margin-bottom: 0;
+    }
+    .invoice-edit-input,
+    .invoice-edit-input-group {
+      max-width: 11.21rem;
+    }
+    .invoice-product-details {
+      background-color: $product-details-bg;
+      padding: 3.75rem 3.45rem 2.3rem 3.45rem;
+      .product-details-border {
+        border: 1px solid $border-color;
+        border-radius: $border-radius;
+      }
+    }
+    .invoice-to-title {
+      margin-bottom: 1.9rem;
+    }
+    .col-title {
+      position: absolute;
+      top: -3.2rem;
+    }
+    .item-options-menu {
+      min-width: 20rem;
+    }
+    .repeater-wrapper {
+      &:not(:last-child) {
+        margin-bottom: 3rem;
+      }
+    }
+    .invoice-calculations {
+      .total-amt-title {
+        width: 100px;
+      }
+    }
+  }
+  @media (max-width: 769px) {
+    .invoice-preview-card {
+      .invoice-title {
+        margin-right: 0;
+        width: 115px;
+      }
+      .invoice-edit-input {
+        max-width: 100%;
+      }
+    }
+  }
+  @media (max-width: 992px) {
+    .col-title {
+      top: -1.5rem !important;
+    }
+  }
+  @media print {
+    hr {
+      margin-top: 1rem !important;
+      margin-bottom: 1rem !important;
+    }
+  }
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: visible;
+  opacity: 1;
+  z-index: 99;
+}
+.popup {
+  margin: 70px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 50%;
+  position: relative;
+  transition: all 5s ease-in-out;
+}
+
+.popup h2 {
+  margin-top: 0;
+  color: #333;
+  font-size: medium;
+  font-weight: 700;
+  font-family: "Roboto", sans-serif;
+  border-radius: 10px;
+  letter-spacing: 1px;
+  margin: 24px 0px;
+}
+.popup .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+.popup .divider {
+  height: 1px;
+  opacity: 0.4;
+  background-color: black;
+}
+.popup .close:hover {
+  color: #06d85f;
+  cursor: pointer;
+}
+.popup .content {
+  overflow: hidden;
+  margin: 16px 0px;
+}
+.popup label {
+  font-size: large;
+  opacity: 0.7;
+  color: black;
+}
+@media screen and (max-width: 700px) {
+  .popup {
+    width: 70%;
+  }
+}
+input {
+  margin: 0px 50px;
+}
+input[type="file"] {
+  margin: 0px 50px;
+}
+.submit {
+  border: 1px solid black;
+  border-radius: 4px;
+  background: darkgreen;
+  color: black;
+  margin: 5px 10px;
+  height: 2.5rem;
+  width: 5rem;
+}
+.reset {
+  border: 1px solid rgb(10, 10, 10);
+  border-radius: 4px;
+  background: rgba(175, 189, 175, 0.89);
+  color: black;
+  margin: 5px 10px;
+  height: 2.5rem;
+  width: 5rem;
+}
+.submit:focus {
+  box-shadow: 0 4px 8px 0px;
+}
+.reset:focus {
+  box-shadow: 0 4px 8px 0px;
+}
+
+.box {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  canvas {
+    border: 1px solid darkgrey;
+  }
+  .spacebetween {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid darkgrey;
+    border-bottom: 1px dashed darkgrey !important;
+  }
+  label {
+    color: black;
+    font-size: 0.9rem;
+    padding: 4px 12px;
+  }
+  button {
+    border: none;
+    background: none;
+    color: darkcyan;
+    font-size: small;
+    padding: 0 10px;
+  }
+}
+
+h6 {
+  margin: 30px 0;
+}

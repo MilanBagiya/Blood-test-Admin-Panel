@@ -1,0 +1,228 @@
+<!-- <div class="content-wrapper container-xxl p-0">
+    <div class="content-body">
+      
+        <section class="invoice-list-wrapper">
+            <div class="card">
+        
+                <div class="row">
+                    <div
+                        class="col-md-6 col-lg-4 col-12 d-flex justify-content-start justify-content-md-end align-items-center offset-lg-2">
+                    </div>
+                </div>
+
+                <div *ngIf="appointmentList && appointmentList.length > 0">
+                    <ngx-datatable [rows]="rows" [rowHeight]="50" class="bootstrap core-bootstrap"
+                        [limit]="selectedOption" [columnMode]="ColumnMode.force" [headerHeight]="50" [footerHeight]="50"
+                        [scrollbarH]="true" *ngFor="let appointment of appointmentList;let i = index;">
+                        <ngx-datatable-column name="#" prop="id" [width]="50">
+                            <ng-template let-id="value" ngx-datatable-cell-template>
+                                <a routerLink="/apps/invoice/preview/{{ id }}" class="font-weight-bold">#{{i + 1}}</a>
+                            </ng-template>
+                        </ngx-datatable-column>
+
+
+                        <ngx-datatable-column name="userFullName" prop="userFullName" [width]="150">
+                            <ng-template let-userFullName="value" ngx-datatable-cell-template>
+                                {{appointment.userFullName}}
+                            </ng-template>
+                        </ngx-datatable-column>
+
+                        <ngx-datatable-column name="Mobile_No" prop="Mobile_No" [width]="150">
+                            <ng-template let-Mobile_No="value" ngx-datatable-cell-template>
+                                {{appointment.mobile_no}}
+                            </ng-template>
+                        </ngx-datatable-column>
+
+
+                        <ngx-datatable-column name="Payment Mode" prop="paymentMode" [width]="50">
+                            <ng-template let-paymentMode="value" ngx-datatable-cell-template>
+                                           {{getPaymentModeKey(appointment.paymentMode)}}
+                        
+                            </ng-template>
+                        </ngx-datatable-column>
+
+                        <ngx-datatable-column name="Payment Status" prop="paymentStatus" [width]="50">
+                            <ng-template let-paymentStatus="value" ngx-datatable-cell-template>
+                                       {{getPaymentStatusKey(appointment.paymentStatus) }}
+                            
+                            </ng-template>
+                        </ngx-datatable-column>
+
+
+                        <ngx-datatable-column name="Assistant Name" prop="assistantName" [width]="50">
+                            <ng-template let-assistantName="value" ngx-datatable-cell-template>
+                                            {{appointment.assistantName}}
+                   
+                            </ng-template>
+                        </ngx-datatable-column>
+
+                        <ngx-datatable-column name="Report Status" prop="reportStatus" [width]="50">
+                            <ng-template let-reportStatus="value" ngx-datatable-cell-template>
+                                                {{getReportStatusKey(appointment.reportStatus)}}
+                            </ng-template>
+                        </ngx-datatable-column>
+
+                        <ngx-datatable-column name="Appointment Date" prop="appointment_date" [width]="50">
+                            <ng-template let-appointment_date="value" ngx-datatable-cell-template>
+                                {{appointment.appointment_date | date: 'dd/MM/yyyy'}}
+                            </ng-template>
+                        </ngx-datatable-column>
+                    </ngx-datatable>
+
+                    <button class="btn btn-default mr-3" (click)="openUpdateAssistantModel(appointment, content)"
+                        title="Edit">
+                        <i class="fa fa-pencil"></i>
+                    </button>
+                </div>
+                <div *ngIf="!appointmentList || appointmentList.length == 0" class="myspace">
+                    No user found
+                </div>
+            </div>
+        </section>
+    </div>
+</div> -->
+
+<!-- <ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">{{saveUpdate}} Appointment</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="appointmentForm">
+            <div class="form-group">
+                <label for="assistantId">
+                    Assistant Name</label>
+                <select class="form-control" name="assistantId" formControlName="assistantId">
+                    <option *ngFor="let assistant of assistantList" [value]="assistant.id">{{assistant.value}}</option>
+                    
+                </select>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="saveAppointment()">Save</button>
+        <button type="button" class="btn btn-danger" (click)="modal.dismiss('cancel click')">Cancel</button>
+    </div>
+</ng-template>  -->
+
+
+<div>
+    <div class="row">
+        <div class="col col-xl-12 col-lg-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h6 class="text-success">Appointment List</h6>
+                    <!-- <div>
+                        <input #csvInput hidden="true" type="file" onclick="this.value=null"
+                            (change)="InputChange($event)" accept=".pdf" />
+                        <button type="button" class="btn btn-warning" rippleEffect (click)="csvInput.click()">
+                            Upload
+                        </button>
+                    </div> -->
+                </div>
+                <div class="card-body table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>User Full Name</th>
+                                <th>Mobile No</th>
+                                <th>Payment Mode</th>
+                                <th>Payment Status</th>
+                                <th>Assistant Name</th>
+                                <th>Report Status</th>
+                                <th>Appointment Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="appointmentList && appointmentList.length > 0">
+                            <tr *ngFor="let appointment of appointmentList;let i = index;">
+                                <th scope="row">{{i + 1}}</th>
+                                <td>{{appointment.userFullName}}</td>
+                                <td>{{appointment.mobile_no}}</td>
+                                <td>
+                                    <div class="badge badge-glow badge-danger" placement="top"
+                                        ngbTooltip="{{getPaymentModeKey(appointment.paymentMode)}}">
+                                        {{getPaymentModeKey(appointment.paymentMode)}}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="badge badge-light-info" placement="top" ngbTooltip="  {{getPaymentStatusKey(appointment.paymentStatus)
+                                    }}">
+                                        {{getPaymentStatusKey(appointment.paymentStatus)
+                                        }}</div>
+                                </td>
+                                <td>{{appointment.assistantName}}</td>
+
+                                <td>
+                                    <div class="badge badge-light-success" ngbTooltip="{{getReportStatusKey(appointment.reportStatus)}}">
+                                        {{getReportStatusKey(appointment.reportStatus)}}</div>
+                                </td>
+                                <td>{{appointment.appointment_date | date: 'dd/MM/yyyy'}}</td>
+                                <td>
+                                    <div ngbDropdown container="body">
+                                        <button type="button" class="btn btn-sm hide-arrow" ngbDropdownToggle
+                                            data-toggle="dropdown">
+                                            <i data-feather="more-vertical"></i>
+                                        </button>
+                                        <div ngbDropdownMenu>
+                                            <a ngbDropdownItem href="javascript:void(0);"
+                                                (click)="openUpdateAssistantModel(appointment, content)">
+                                                <i data-feather="arrow-up-circle" class="mr-50"></i><span>Assign</span>
+
+                                            </a>
+                                            <a ngbDropdownItem href="javascript:void(0);">
+                                                <i data-feather="edit" class="mr-50"></i><span>Edit</span>
+                                            </a>
+                                            <a ngbDropdownItem href="javascript:void(0);">
+                                                <i data-feather="trash" class="mr-50"></i><span>Delete</span></a>
+                                        </div>
+                                    </div>
+
+                                    <!-- <button class="btn btn-default mr-3"
+                                        (click)="openUpdateAssistantModel(appointment, content)" title="Edit">
+                                        <i data-feather="edit"></i>
+                                    </button> -->
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="!appointmentList || appointmentList.length == 0">
+                            <tr>
+                                <td colspan="7">
+                                    <h5 class="text-danger m-2">User Not Authorised</h5>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title text-success" id="myModalLabel160">{{saveUpdate}} Appointment</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="appointmentForm">
+            <div class="form-group">
+                <label for="assistantId">Assistant Name</label>
+                <select class="form-control" name="assistantId" formControlName="assistantId">
+                    <option *ngFor="let assistant of assistantList" [value]="assistant.id">{{assistant.value}}</option>
+                </select>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="saveAppointment()" rippleEffect>Save</button>
+        <button type="button" class="btn btn-danger" (click)="modal.dismiss('cancel click')"
+            rippleEffect>Cancel</button>
+    </div>
+</ng-template>

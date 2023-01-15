@@ -1,0 +1,108 @@
+<div class="auth-wrapper auth-v1 px-2">
+    <div class="auth-inner py-2">
+        <div class="card mb-0">
+            <div class="card-body">
+                <h3 class="text-danger text-center">Lab Assitant Register</h3>
+                <form class="auth-register-form mt-2" [formGroup]="signUpFormGroup" (ngSubmit)="onSignUp()">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="name" class="form-label">Assitant First Name</label>
+                                <input type="text" formControlName="name" name="name"
+                                    class="form-control" placeholder="Enter your name"
+                                    aria-describedby="name" tabindex="1" autofocus
+                                    [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+                                 <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                                    <div *ngIf="f.name.errors.required">Name is required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="lastName" class="form-label">Assitant Last Name</label>
+                                <input type="text" formControlName="lastName" name="lastName" class="form-control"
+                                    placeholder="Enter your Last Name" aria-describedby="lastName" tabindex="2"
+                                    autofocus [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
+                                <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+                                    <div *ngIf="f.lastName.errors.required">Last Name is required</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="email" class="form-label">Enter Your Email </label>
+                                <input type="email" formControlName="email" name="email"
+                                    class="form-control" placeholder="example@example.com"
+                                    aria-describedby="email" tabindex="2"
+                                    [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                                <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                                    <div *ngIf="f.email.errors.required">Contact Email is required</div>
+                                    <div *ngIf="f.email.errors.email">Contact Email must be a valid email
+                                        address</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="mobile_no" class="form-label">Mobile Number</label>
+                                <input type="number" formControlName="mobile_no" name="mobile_no"
+                                    class="form-control" placeholder="+91 ***** *****"
+                                    aria-describedby="mobile_no" tabindex="2"
+                                    [ngClass]="{ 'is-invalid': submitted && f.mobile_no.errors }" />
+                                <div *ngIf="submitted && f.mobile_no.errors" class="invalid-feedback">
+                                    <div *ngIf="f.mobile_no.errors.required">Enter Valid Mobile Number
+                                    </div>
+                                    <div *ngIf="f.mobile_no.errors.email">Enter Valid Mobile Number</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="address" class="form-label">Enter Your Address </label>
+                                <input type="text" formControlName="address" name="address"
+                                    class="form-control" placeholder=""
+                                    aria-describedby="address" tabindex="2"
+                                    [ngClass]="{ 'is-invalid': submitted && f.address.errors }" />
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="password" class="form-label">Password</label>
+                                <div class="input-group input-group-merge form-password-toggle">
+                                    <input [type]="passwordTextType ? 'text' : 'password'" formControlName="password"
+                                        class="form-control form-control-merge" placeholder="············"
+                                        aria-describedby="register-password" tabindex="3"
+                                        [ngClass]="{ 'is-invalid error': submitted && f.password.errors }" />
+                                    <div class="input-group-append">
+                                        <span class="input-group-text cursor-pointer"><i class="feather font-small-4"
+                                                [ngClass]="{
+                              'icon-eye-off': passwordTextType,
+                              'icon-eye': !passwordTextType
+                              }" (click)="togglePasswordTextType()"></i></span>
+                                    </div>
+                                </div>
+                                <div *ngIf="submitted && f.password.errors" class="invalid-feedback"
+                                    [ngClass]="{ 'd-block': submitted && f.password.errors }">
+                                    <div *ngIf="f.password.errors.required">Password is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit"  class="btn btn-danger btn-block"
+                        tabindex="5" rippleEffect   [disabled]="signUpFormGroup.invalid">Sign up</button>
+                      
+                </form>
+                <p class="text-center mt-2">
+                    <span>Already have an account? </span>
+                    <a routerLink="/">
+                        <span class="text-danger">Sign in instead</span>
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

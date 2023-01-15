@@ -1,0 +1,75 @@
+<div>
+    <div class="row">
+        <div class="col col-xl-12 col-lg-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h6 class="text-success">User Assign List</h6>
+                   
+                </div>
+                <div class="card-body table-responsive">
+                    <table class="table text-center">
+                        <thead>
+                            <tr>
+                                <th> ID</th>
+                                <th>User Full Name</th>
+                                <th>Appointment Date</th>
+                                <th>Payment Status</th>
+                                <th>Payment Mode</th>
+                                <th>Report Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="testList && testList.length > 0">
+                            <tr *ngFor="let test of testList;let i = index;">
+                                <th scope="row">{{i+1}}</th>
+                                <td>{{test.userFullName}}</td>
+                                <td>{{test.appointment_date | date: 'dd/MM/yyyy'}}</td>
+                                <td>
+                                    <div class="badge badge-light-info" ngbTooltip="{{getPaymentStatusKey(test.paymentStatus)}}">{{getPaymentStatusKey(test.paymentStatus)}}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="badge badge-glow badge-danger" ngbTooltip="{{getPaymentModeKey(test.paymentMode)}}">{{getPaymentModeKey(test.paymentMode)}}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="badge badge-light-success" ngbTooltip="{{getReportStatusKey(test.reportStatus)}}">
+                                        {{getReportStatusKey(test.reportStatus)}}</div>
+                                </td>
+                                <td class="text-center">
+                                    <div ngbDropdown container="body">
+                                        <button type="button" class="btn btn-sm hide-arrow" ngbDropdownToggle
+                                            data-toggle="dropdown">
+                                            <i data-feather="more-vertical"></i>
+                                        </button>
+                                        <div ngbDropdownMenu>
+                                            <a ngbDropdownItem href="javascript:void(0);" class="image-upload">
+                                                <label for="file-input{{i}}">
+                                                    <span data-feather="file-plus" rippleEffect
+                                                        (click)="csvInput.click()">
+                                                    </span>
+                                                    <span class="span-update">Upload</span>
+                                                </label>
+                                                <input id="file-input{{i}}" type="file" onclick="this.value=null"
+                                                    (change)="InputChange($event,test.appointmentId)" accept=".pdf" />
+                                            </a>
+                                            <a ngbDropdownItem href="javascript:void(0);"><i data-feather="trash"
+                                                    class="mr-50"></i><span>Delete</span></a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="!testList || testList.length == 0">
+                            <tr>
+                                <td colspan="7">
+                                    <h6 class="text-info">No test found</h6>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
